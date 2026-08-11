@@ -1,2 +1,3 @@
 npm run typecheck
 npm ci --dry-run
+npm run test:run
