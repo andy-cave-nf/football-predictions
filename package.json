@@ -44,5 +44,9 @@
     "typescript": "^6.0.0",
     "typescript-eslint": "^8.67.0",
     "vitest": "^4.1.10"
+  },
+  "dependencies": {
+    "commander": "^15.0.0",
+    "date-fns": "^4.4.0"
   }
 }
