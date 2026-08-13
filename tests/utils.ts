@@ -1,5 +1,5 @@
-import { HARDCODED_BET, SimpleBet } from '../src/match_bets';
-import type { MatchBet, MatchBets } from '../src/types';
+import { HARDCODED_BET, SimpleBet } from '../src/bets/match_bets';
+import type { MatchBet, MatchBets } from '../src/bets/types';
 
 export type SetUp = {
   bet: MatchBets;

@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { format } from 'date-fns';
-import { SimpleBet } from './match_bets';
+import { SimpleBet } from './bets/match_bets';
 
 const program = new Command();
 
