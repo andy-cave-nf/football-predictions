@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "commander": "^15.0.0",
-    "date-fns": "^4.4.0"
+    "date-fns": "^4.4.0",
+    "zod": "^4.4.3"
   }
 }

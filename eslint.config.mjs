@@ -14,7 +14,10 @@ export default defineConfig({
     {
         files:['tests/**'],
         plugins: { vitest },
-        rules: { ...vitest.configs.recommended.rules },
+        rules: {
+            ...vitest.configs.recommended.rules,
+            'vitest/valid-expect': ['error', { maxArgs: 2 }],
+        },
 
     },
     {
