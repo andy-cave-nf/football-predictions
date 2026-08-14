@@ -36,7 +36,9 @@ const MatchBetSchema = z
   })
   .strict();
 
-export const MatchBetRows = z.array(MatchBetSchema);
+export const MatchBetRowsSchema = z.array(MatchBetSchema);
+
+export type MatchBetRows = z.infer<typeof MatchBetRowsSchema>;
 
 export type MatchBetType = z.infer<typeof MatchBetSchema>;
 
