@@ -1,5 +1,6 @@
 import { type MatchBetRows, MatchBetRowsSchema } from '../../../src/bets/types';
-import { HARDCODED_BET } from '../../../src/bets/match_bets';
+
+import { HARDCODED_BET } from '../utils';
 
 describe('Given the match bet schema', () => {
   let bets: MatchBetRows;

@@ -1,27 +1,32 @@
-import type { MatchBets } from '../../src/bets/types';
+import type { MatchBetRows } from '../../src/bets/types';
 import { run } from '../../src/run';
+import type { Source, SourceMatch } from '../../src/sources/types';
+import type { Printer } from '../../src/printers/types';
+import type { Strategy } from '../../src/strategies/types';
+import { StubPrinter, StubSource, UniformStrategy } from './utils';
 
-describe('Given a date, filepath and bet object', () => {
-  let date: string;
-  let filepath: string;
-  let bet: MatchBets;
-  let betCalls: Array<{ date: string; filepath: string }>;
+describe('Given a source, a printer and a strategy', () => {
+  let source: Source;
+  let printer: Printer;
+  let strategy: Strategy;
+  let printed: MatchBetRows;
+  let sourceMatches: SourceMatch[];
   beforeEach(() => {
-    date = '2000-01-01';
-    filepath = 'bets.json';
-    betCalls = [];
-    bet = {
-      bet(date, filepath) {
-        betCalls.push({ date, filepath });
-      },
-    };
+    printed = [];
+    sourceMatches = [
+      { home: 'Arsenal', away: 'Chelsea' },
+      { home: 'Manchester United', away: 'Aston Villa' },
+    ];
+    source = new StubSource(sourceMatches);
+    printer = new StubPrinter(printed);
+    strategy = new UniformStrategy();
   });
-  describe('when the run function is called', () => {
+  describe('when run is called with a date', () => {
     beforeEach(() => {
-      run({ date, filepath }, bet);
+      run('2000-01-01', source, printer, strategy);
     });
-    it('calls the bet method on bets', () => {
-      expect(betCalls).toStrictEqual([{ date, filepath }]);
+    it('prints bets for each fixture on the given date', () => {
+      expect(printed).toStrictEqual(sourceMatches.map((m) => strategy.bet(m)));
     });
   });
 });

@@ -1,8 +1,10 @@
 import { Command } from 'commander';
-import { SimpleBet } from './bets/match_bets';
 import { format } from 'date-fns';
 import { run } from './run';
 import { z } from 'zod';
+import { JsonPrinter } from './printers/json_printer';
+import { ConstantStrategy } from './strategies/constant_strategy';
+import { JsonSource } from './sources/json_source';
 
 export const OptionsSchema = z.object({
   date: z.iso.date(),
@@ -24,7 +26,12 @@ export function buildProgram(): Command {
         console.error(z.prettifyError(result.error));
         process.exit(1);
       }
-      run(result.data, new SimpleBet());
+      run(
+        result.data.date,
+        new JsonSource('./fixtures/matches.fixture.json'),
+        new JsonPrinter(filepath),
+        new ConstantStrategy()
+      );
     });
   return program;
 }

@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { Printer } from '../printers/types';
 
 const Teams = z.object({
   home: z.string(),
@@ -43,5 +44,6 @@ export type MatchBetRows = z.infer<typeof MatchBetRowsSchema>;
 export type MatchBetType = z.infer<typeof MatchBetSchema>;
 
 export interface MatchBets {
-  bet(date: string, filepath: string): void;
+  bets(): MatchBetRows;
+  printTo(printer: Printer): void;
 }
