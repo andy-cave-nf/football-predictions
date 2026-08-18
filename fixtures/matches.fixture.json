@@ -1,0 +1,18 @@
+{
+  "2000-01-01": [
+    { "home": "Testby United", "away": "Fakeham Rovers", "kickoff": "2000-01-01T15:00:00Z" },
+    { "home": "Mockingham City", "away": "Stubbington Town", "kickoff": "2000-01-01T17:30:00Z" }
+  ],
+  "2000-01-02": [
+    { "home": "Dummyfield Athletic", "away": "Placeholder Wanderers", "kickoff": "2000-01-02T12:30:00Z" },
+    { "home": "Fixtureton FC", "away": "Sampleside Albion", "kickoff": "2000-01-02T15:00:00Z" },
+    { "home": "Assertion Rangers", "away": "Nullcastle United", "kickoff": "2000-01-02T20:00:00Z" }
+  ],
+  "2000-01-03": [
+    { "home": "Faketon Hotspur", "away": "Testmouth", "kickoff": "2000-01-03T15:00:00Z" }
+  ],
+  "2000-01-04": [],
+  "2000-01-05": [
+    {"h": "A town", "a":  "Another town"}
+  ]
+}
