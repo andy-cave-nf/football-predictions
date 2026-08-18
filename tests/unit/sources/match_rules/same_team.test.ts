@@ -18,7 +18,7 @@ describe('Given a match with the same home and away team, independent of case', 
   beforeEach(() => {
     match = { home: 'ArSeNaL', away: 'aRsEnAl' };
   });
-  describe('when the match is processed', () => {
+  describe('when the match is validated', () => {
     it('raises a MatchRuleError', () => {
       expect(() => sameTeam(match)).toThrow(MatchRuleError);
     });
@@ -30,7 +30,7 @@ describe('Given a match with the same home and away team, independent of whitesp
   beforeEach(() => {
     match = { home: '    arsenal     ', away: 'Arsenal' };
   });
-  describe('when the match is processed', () => {
+  describe('when the match is validated', () => {
     it('raises a MatchRuleError', () => {
       expect(() => sameTeam(match)).toThrow(MatchRuleError);
     });
@@ -42,7 +42,7 @@ describe('Given a valid match', () => {
   beforeEach(() => {
     match = { home: 'Arsenal', away: 'Spurs' };
   });
-  describe('when the match is processed', () => {
+  describe('when the match is validated', () => {
     it('does not raise a MatchRuleError', () => {
       expect(() => sameTeam(match)).not.toThrow(MatchRuleError);
     });
