@@ -3,7 +3,7 @@ import { type Source, SourceError } from '../../../src/sources/types';
 
 describe('Given a source that raises an error that is wrapped in error handling', () => {
   let source: ErrorHandledSource;
-  describe('when matchesFor is called', () => {
+  describe('when the matches are processed', () => {
     beforeEach(() => {
       const erroredSource: Source = {
         matchesFor(_date) {
