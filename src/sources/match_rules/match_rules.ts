@@ -42,3 +42,5 @@ export const uniqueTeams: MatchRule = (matches: SourceMatch[]) => {
     throw new MatchRuleError('Teams must be unique');
   }
 };
+
+export const DEFAULT_MATCH_RULES: MatchRule[] = [sameTeam, emptyTeam, uniqueTeams];

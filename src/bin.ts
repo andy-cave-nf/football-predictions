@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { JsonPrinter } from './printers/json_printer';
 import { ConstantStrategy } from './strategies/constant_strategy';
 import { JsonSource } from './sources/json_source';
+import { ErrorHandledSource, RuleValidatedSource } from './sources/shared';
+import { DEFAULT_MATCH_RULES } from './sources/match_rules/match_rules';
 
 export const OptionsSchema = z.object({
   date: z.iso.date(),
@@ -28,7 +30,10 @@ export function buildProgram(): Command {
       }
       run(
         result.data.date,
-        new JsonSource('./fixtures/matches.fixture.json'),
+        new RuleValidatedSource(
+          new ErrorHandledSource(new JsonSource('./fixtures/matches.fixture.json')),
+          DEFAULT_MATCH_RULES
+        ),
         new JsonPrinter(filepath),
         new ConstantStrategy()
       );
