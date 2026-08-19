@@ -8,6 +8,8 @@ import { JsonSource } from './sources/json_source';
 import { ErrorHandledSource, RuleValidatedSource } from './sources/shared';
 import { DEFAULT_MATCH_RULES } from './sources/match_rules/match_rules';
 import { ConstantProbability } from './strategies/probabilities/probability';
+import { RuleValidatedProbability } from './strategies/probabilities/shared';
+import { DEFAULT_PREDICTION_RULES } from './strategies/probabilities/rules/rules';
 
 export const OptionsSchema = z.object({
   date: z.iso.date(),
@@ -36,7 +38,9 @@ export function buildProgram(): Command {
           DEFAULT_MATCH_RULES
         ),
         new JsonPrinter(filepath),
-        new BetStrategy(new ConstantProbability())
+        new BetStrategy(
+          new RuleValidatedProbability(new ConstantProbability(), DEFAULT_PREDICTION_RULES)
+        )
       );
     });
   return program;
