@@ -38,10 +38,14 @@ export class StubProbability implements Probability {
   }
 }
 
-export const HARDCODED_MATCH: SourceMatch = { home: 'Arsenal', away: 'Chelsea' };
+export const HARDCODED_MATCH: SourceMatch = {
+  home: 'Arsenal',
+  away: 'Chelsea',
+  odds: { home: 1.5, away: 1.4, draw: 1.6 },
+};
 export const HARDCODED_BET: MatchBetType = {
-  teams: HARDCODED_MATCH,
+  teams: { home: HARDCODED_MATCH.home, away: HARDCODED_MATCH.away },
   stake: { home: 0.1, away: 0.1, draw: 0.1 },
   probability: { home: 0.3, away: 0.3, draw: 0.4 },
-  odds: { home: 1.5, away: 1.5, draw: 1.5 },
+  odds: HARDCODED_MATCH.odds,
 };

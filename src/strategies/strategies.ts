@@ -7,10 +7,10 @@ export class BetStrategy implements Strategy {
   constructor(private probability: Probability) {}
   bet(match: SourceMatch): MatchBetType {
     return {
-      teams: match,
+      teams: { home: match.home, away: match.away },
       stake: { home: 0, away: 0, draw: 0 },
       probability: this.probability.forMatch(match),
-      odds: { home: 3.0, away: 3.0, draw: 3.0 },
+      odds: match.odds,
     };
   }
 }

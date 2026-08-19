@@ -14,8 +14,16 @@ describe('Given a json fixture source', () => {
     });
     it('returns the fixtures played on that date', () => {
       expect(matches).toStrictEqual([
-        { home: 'Testby United', away: 'Fakeham Rovers' },
-        { home: 'Mockingham City', away: 'Stubbington Town' },
+        {
+          home: 'Testby United',
+          away: 'Fakeham Rovers',
+          odds: { home: 1.1, away: 4.0, draw: 1.5 },
+        },
+        {
+          home: 'Mockingham City',
+          away: 'Stubbington Town',
+          odds: { home: 1.5, away: 1.5, draw: 3.0 },
+        },
       ]);
     });
   });

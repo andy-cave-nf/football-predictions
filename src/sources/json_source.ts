@@ -6,6 +6,6 @@ export class JsonSource implements Source {
   matchesFor(date: string): SourceMatch[] {
     const raw = JSON.parse(readFileSync(this.filepath, 'utf8'));
     const fixtures = JsonSourceSchema.parse(raw[date] ?? []);
-    return fixtures.map((f) => ({ home: f.home, away: f.away }));
+    return fixtures.map((f) => ({ home: f.home, away: f.away, odds: f.odds }));
   }
 }

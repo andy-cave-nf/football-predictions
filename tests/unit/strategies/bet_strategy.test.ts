@@ -14,7 +14,7 @@ describe('Given a strategy with a probability calculation', () => {
     prediction = { home: 0.1, away: 0.2, draw: 0.7 };
     probability = new StubProbability(prediction);
     strategy = new BetStrategy(probability);
-    match = { home: 'Arsenal', away: 'Chelsea' };
+    match = { home: 'Arsenal', away: 'Chelsea', odds: { home: 1.2, away: 1.2, draw: 1.3 } };
   });
   describe('when a bet is created for a match', () => {
     let bet: MatchBetType;
@@ -25,7 +25,7 @@ describe('Given a strategy with a probability calculation', () => {
       expect(bet.probability).toStrictEqual(prediction);
     });
     it('assigns the match teams to the bet', () => {
-      expect(bet.teams).toStrictEqual(match);
+      expect(bet.teams).toStrictEqual({ home: match.home, away: match.away });
     });
   });
 });
