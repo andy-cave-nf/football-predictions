@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { run } from './run';
 import { z } from 'zod';
 import { JsonPrinter } from './printers/json_printer';
-import { ConstantStrategy } from './strategies/constant_strategy';
+import { ConstantStrategy } from './strategies/strategies';
 import { JsonSource } from './sources/json_source';
 import { ErrorHandledSource, RuleValidatedSource } from './sources/shared';
 import { DEFAULT_MATCH_RULES } from './sources/match_rules/match_rules';

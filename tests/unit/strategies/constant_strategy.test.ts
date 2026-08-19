@@ -1,14 +1,14 @@
 import type { Strategy } from '../../../src/strategies/types';
 import type { SourceMatch } from '../../../src/sources/types';
-import { ConstantStrategy } from '../../../src/strategies/constant_strategy';
 import type { MatchBetType } from '../../../src/bets/types';
+import { StubStrategy } from '../utils';
 
-describe('Given a match and the constant betting strategy', () => {
+describe('Given a match and a stub betting strategy', () => {
   let strategy: Strategy;
   let match: SourceMatch;
   beforeEach(() => {
     match = { home: 'Mockingham City', away: 'Stubbington Town' };
-    strategy = new ConstantStrategy();
+    strategy = new StubStrategy();
   });
   describe('when a bet is created', () => {
     let bet: MatchBetType;
@@ -27,9 +27,9 @@ describe('Given a match and the constant betting strategy', () => {
     });
     it('returns constant stakes', () => {
       expect(bet.stake).toStrictEqual({
-        home: 0,
-        away: 0,
-        draw: 0,
+        home: 0.1,
+        away: 0.1,
+        draw: 0.1,
       });
     });
   });

@@ -3,7 +3,7 @@ import { run } from '../../src/run';
 import type { Source, SourceMatch } from '../../src/sources/types';
 import type { Printer } from '../../src/printers/types';
 import type { Strategy } from '../../src/strategies/types';
-import { StubPrinter, StubSource, UniformStrategy } from './utils';
+import { StubPrinter, StubSource, StubStrategy } from './utils';
 
 describe('Given a source, a printer and a strategy', () => {
   let source: Source;
@@ -19,7 +19,7 @@ describe('Given a source, a printer and a strategy', () => {
     ];
     source = new StubSource(sourceMatches);
     printer = new StubPrinter(printed);
-    strategy = new UniformStrategy();
+    strategy = new StubStrategy();
   });
   describe('when run is called with a date', () => {
     beforeEach(() => {
