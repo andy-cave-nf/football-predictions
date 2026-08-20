@@ -11,6 +11,8 @@ import { ConstantProbability } from './strategies/probabilities/probability';
 import { RuleValidatedProbability } from './strategies/probabilities/shared';
 import { DEFAULT_PREDICTION_RULES } from './strategies/probabilities/rules';
 import { ConstantStake } from './strategies/stakes/stakes';
+import { RuleValidatedStake } from './strategies/stakes/shared';
+import { DEFAULT_STAKE_RULES } from './strategies/stakes/rules';
 
 export const OptionsSchema = z.object({
   date: z.iso.date(),
@@ -41,7 +43,7 @@ export function buildProgram(): Command {
         new JsonPrinter(filepath),
         new BetStrategy(
           new RuleValidatedProbability(new ConstantProbability(), DEFAULT_PREDICTION_RULES),
-          new ConstantStake()
+          new RuleValidatedStake(new ConstantStake(), DEFAULT_STAKE_RULES)
         )
       );
     });
