@@ -58,3 +58,15 @@ export const HARDCODED_BET: MatchBetType = {
   probability: { home: 0.3, away: 0.3, draw: 0.4 },
   odds: HARDCODED_MATCH.odds,
 };
+
+export const HARDCODED_PREDICTION: OutcomeDistribution = {
+  home: 0.3,
+  away: 0.25,
+  draw: 0.45,
+};
+
+export const HARDCODED_ODDS: OutcomeDistribution = {
+  home: 4.0,
+  away: 4.0,
+  draw: 2.0,
+};

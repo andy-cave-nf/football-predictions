@@ -37,4 +37,4 @@ export const notNegative: StakeRule = (wager: OutcomeDistribution) => {
   });
 };
 
-export const DEFAULT_STAKE_RULES = [sumLessThanOne, oneWagerOnly, notNegative];
+export const DEFAULT_STAKE_RULES = [sumLessThanOne, notNegative, oneWagerOnly];
