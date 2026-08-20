@@ -10,8 +10,8 @@ import { DEFAULT_MATCH_RULES } from './sources/rules';
 import { ConstantProbability } from './strategies/probabilities/probability';
 import { RuleValidatedProbability } from './strategies/probabilities/shared';
 import { DEFAULT_PREDICTION_RULES } from './strategies/probabilities/rules';
-import { ConstantStake } from './strategies/stakes/stakes';
-import { RuleValidatedStake } from './strategies/stakes/shared';
+import { KellyStake } from './strategies/stakes/stakes';
+import { MaxStakeOnly, RuleValidatedStake } from './strategies/stakes/shared';
 import { DEFAULT_STAKE_RULES } from './strategies/stakes/rules';
 
 export const OptionsSchema = z.object({
@@ -43,7 +43,7 @@ export function buildProgram(): Command {
         new JsonPrinter(filepath),
         new BetStrategy(
           new RuleValidatedProbability(new ConstantProbability(), DEFAULT_PREDICTION_RULES),
-          new RuleValidatedStake(new ConstantStake(), DEFAULT_STAKE_RULES)
+          new RuleValidatedStake(new MaxStakeOnly(new KellyStake(0.5)), DEFAULT_STAKE_RULES)
         )
       );
     });
