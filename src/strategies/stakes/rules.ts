@@ -27,3 +27,14 @@ export const oneWagerOnly: StakeRule = (wager: OutcomeDistribution) => {
     throw new StakeRuleError('More than one wager is forbidden');
   }
 };
+
+export const notNegative: StakeRule = (wager: OutcomeDistribution) => {
+  const values = Object.values(wager);
+  values.forEach((value) => {
+    if (value < 0) {
+      throw new StakeRuleError('Wagers must be greater than 0');
+    }
+  });
+};
+
+export const DEFAULT_STAKE_RULES = [sumLessThanOne, oneWagerOnly, notNegative];
