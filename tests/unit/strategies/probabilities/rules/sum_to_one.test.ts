@@ -1,11 +1,11 @@
-import type { Prediction } from '../../../../../src/strategies/probabilities/types';
 import {
   PredictionRuleError,
   sumToOne,
 } from '../../../../../src/strategies/probabilities/rules/rules';
+import type { OutcomeDistribution } from '../../../../../src/shared';
 
 describe('Given the sumToOne rule', () => {
-  let prediction: Prediction;
+  let prediction: OutcomeDistribution;
   describe('when a match prediction sums to one exactly', () => {
     beforeEach(() => {
       prediction = { home: 0.3, away: 0.4, draw: 0.3 };

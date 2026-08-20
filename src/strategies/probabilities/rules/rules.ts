@@ -1,4 +1,4 @@
-import type { Prediction } from '../types';
+import type { OutcomeDistribution } from '../../../shared';
 
 export class PredictionRuleError extends Error {
   constructor(
@@ -10,9 +10,9 @@ export class PredictionRuleError extends Error {
   }
 }
 
-export type PredictionRule = (predictions: Prediction) => void;
+export type PredictionRule = (predictions: OutcomeDistribution) => void;
 
-export const sumToOne: PredictionRule = (prediction: Prediction) => {
+export const sumToOne: PredictionRule = (prediction: OutcomeDistribution) => {
   const values = Object.values(prediction);
   const total = values.reduce((acc, cur) => acc + cur, 0);
   if (Math.abs(total - 1) >= 0.0005) {
@@ -20,7 +20,7 @@ export const sumToOne: PredictionRule = (prediction: Prediction) => {
   }
 };
 
-export const notNegative: PredictionRule = (prediction: Prediction) => {
+export const notNegative: PredictionRule = (prediction: OutcomeDistribution) => {
   const values = Object.values(prediction);
   values.forEach((value) => {
     if (value < 0) {
