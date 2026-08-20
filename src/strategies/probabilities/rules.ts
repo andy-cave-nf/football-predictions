@@ -1,4 +1,4 @@
-import type { OutcomeDistribution } from '../../../shared';
+import type { OutcomeDistribution } from '../../shared';
 
 export class PredictionRuleError extends Error {
   constructor(

@@ -3,7 +3,7 @@ import type { Printer } from '../../src/printers/types';
 import type { MatchBetRows, MatchBetType } from '../../src/bets/types';
 import type { Strategy } from '../../src/strategies/types';
 import type { Probability } from '../../src/strategies/probabilities/types';
-import type { Stake } from '../../src/strategies/stake/types';
+import type { Stake } from '../../src/strategies/stakes/types';
 import type { OutcomeDistribution } from '../../src/shared';
 
 export class StubSource implements Source {
@@ -41,7 +41,7 @@ export class StubProbability implements Probability {
 }
 
 export class StubStake implements Stake {
-  constructor(private wager: OutcomeDistribution) {}
+  constructor(private wager: OutcomeDistribution = { home: 0, away: 0, draw: 0 }) {}
   stake(_prediction: OutcomeDistribution, _odds: OutcomeDistribution): OutcomeDistribution {
     return this.wager;
   }

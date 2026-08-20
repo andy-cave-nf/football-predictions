@@ -1,4 +1,4 @@
-import { cleanName } from '../../../../src/sources/match_rules/match_rules';
+import { cleanName } from '../../../../src/sources/rules';
 
 describe('Given the clean name process', () => {
   let name: string;

@@ -1,7 +1,4 @@
-import {
-  PredictionRuleError,
-  sumToOne,
-} from '../../../../../src/strategies/probabilities/rules/rules';
+import { PredictionRuleError, sumToOne } from '../../../../../src/strategies/probabilities/rules';
 import type { OutcomeDistribution } from '../../../../../src/shared';
 
 describe('Given the sumToOne rule', () => {

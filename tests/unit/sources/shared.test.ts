@@ -1,6 +1,6 @@
 import { ErrorHandledSource, RuleValidatedSource } from '../../../src/sources/shared';
 import { type Source, SourceError, type SourceMatch } from '../../../src/sources/types';
-import { type MatchRule, MatchRuleError } from '../../../src/sources/match_rules/match_rules';
+import { type MatchRule, MatchRuleError } from '../../../src/sources/rules';
 import { StubSource } from '../utils';
 
 describe('Given a source that raises an error that is wrapped in error handling', () => {

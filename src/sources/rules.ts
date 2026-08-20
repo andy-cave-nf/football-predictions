@@ -1,4 +1,4 @@
-import type { SourceMatch } from '../types';
+import type { SourceMatch } from './types';
 
 export function cleanName(name: string): string {
   return name.trim().toLowerCase();

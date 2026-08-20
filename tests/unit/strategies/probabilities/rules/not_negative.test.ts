@@ -1,7 +1,7 @@
 import {
   notNegative,
   PredictionRuleError,
-} from '../../../../../src/strategies/probabilities/rules/rules';
+} from '../../../../../src/strategies/probabilities/rules';
 import type { OutcomeDistribution } from '../../../../../src/shared';
 
 describe('Given the not negative test', () => {

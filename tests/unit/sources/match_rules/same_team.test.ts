@@ -1,5 +1,5 @@
 import type { SourceMatch } from '../../../../src/sources/types';
-import { MatchRuleError, sameTeam } from '../../../../src/sources/match_rules/match_rules';
+import { MatchRuleError, sameTeam } from '../../../../src/sources/rules';
 
 describe('Given the same team rule', () => {
   let matches: SourceMatch[];

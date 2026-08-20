@@ -2,7 +2,7 @@ import type { Probability } from '../../../../src/strategies/probabilities/types
 import {
   type PredictionRule,
   PredictionRuleError,
-} from '../../../../src/strategies/probabilities/rules/rules';
+} from '../../../../src/strategies/probabilities/rules';
 import { HARDCODED_MATCH, StubProbability } from '../../utils';
 import {
   ProbabilityError,

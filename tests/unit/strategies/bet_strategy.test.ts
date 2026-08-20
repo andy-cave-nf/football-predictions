@@ -4,7 +4,7 @@ import { StubProbability, StubStake } from '../utils';
 import type { Probability } from '../../../src/strategies/probabilities/types';
 import { BetStrategy } from '../../../src/strategies/strategies';
 import type { MatchBetType } from '../../../src/bets/types';
-import type { Stake } from '../../../src/strategies/stake/types';
+import type { Stake } from '../../../src/strategies/stakes/types';
 import type { OutcomeDistribution } from '../../../src/shared';
 
 describe('Given a strategy with a probability calculation', () => {
@@ -33,7 +33,7 @@ describe('Given a strategy with a probability calculation', () => {
     it('assigns the match teams to the bet', () => {
       expect(bet.teams).toStrictEqual({ home: match.home, away: match.away });
     });
-    it('returns the calculated stake in the bet', () => {
+    it('returns the calculated stakes in the bet', () => {
       expect(bet.stake).toStrictEqual(wager);
     });
   });
