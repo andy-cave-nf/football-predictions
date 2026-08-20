@@ -21,22 +21,33 @@ export class RuleValidatedStake implements Stake {
 }
 
 export class MaxStakeOnly implements Stake {
-  constructor(private origin: Stake) {}
+  constructor(
+    private origin: Stake,
+    private tolerance: number = 0.0005
+  ) {}
   stake(prediction: OutcomeDistribution, odds: OutcomeDistribution): OutcomeDistribution {
     const wager = this.origin.stake(prediction, odds);
-    const values = Object.values(wager);
-    const max = Math.max(...values);
-    const maxCount = values.filter((value) => {
-      return Math.abs(value - max) <= 0.0005;
-    }).length;
-    if (maxCount > 1) {
+    const max = this._maxValue(wager);
+    const countAtMax = this._countCloseToValue(wager, max);
+    if (countAtMax > 1) {
       return { home: 0, draw: 0, away: 0 };
     }
     return {
-      home: wager.home === max ? wager.home : 0,
-      away: wager.away === max ? wager.away : 0,
-      draw: wager.draw === max ? wager.draw : 0,
+      home: this._isClose(wager.home, max) ? wager.home : 0,
+      away: this._isClose(wager.away, max) ? wager.away : 0,
+      draw: this._isClose(wager.draw, max) ? wager.draw : 0,
     };
+  }
+  private _isClose(valueA: number, valueB: number): boolean {
+    return Math.abs(valueA - valueB) <= this.tolerance;
+  }
+
+  private _maxValue(wager: OutcomeDistribution): number {
+    return Math.max(...Object.values(wager));
+  }
+  private _countCloseToValue(wager: OutcomeDistribution, value: number): number {
+    const objectValues = Object.values(wager);
+    return objectValues.filter((val) => this._isClose(value, val)).length;
   }
 }
 
