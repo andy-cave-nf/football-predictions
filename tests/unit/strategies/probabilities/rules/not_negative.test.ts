@@ -1,11 +1,11 @@
-import type { Prediction } from '../../../../../src/strategies/probabilities/types';
 import {
   notNegative,
   PredictionRuleError,
 } from '../../../../../src/strategies/probabilities/rules/rules';
+import type { OutcomeDistribution } from '../../../../../src/shared';
 
 describe('Given the not negative test', () => {
-  let prediction: Prediction;
+  let prediction: OutcomeDistribution;
   describe('when a match prediction have positive only values', () => {
     beforeEach(() => {
       prediction = { home: 0.1, away: 0.1, draw: 0.1 };

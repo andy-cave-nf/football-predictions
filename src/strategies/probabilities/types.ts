@@ -1,11 +1,6 @@
 import type { SourceMatch } from '../../sources/types';
-
-export type Prediction = {
-  home: number;
-  away: number;
-  draw: number;
-};
+import type { OutcomeDistribution } from '../../shared';
 
 export interface Probability {
-  forMatch(match: SourceMatch): Prediction;
+  forMatch(match: SourceMatch): OutcomeDistribution;
 }
