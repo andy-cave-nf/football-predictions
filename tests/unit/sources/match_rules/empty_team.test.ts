@@ -1,5 +1,5 @@
 import type { SourceMatch } from '../../../../src/sources/types';
-import { emptyTeam, MatchRuleError } from '../../../../src/sources/match_rules/match_rules';
+import { emptyTeam, MatchRuleError } from '../../../../src/sources/rules';
 
 describe('Given the emptyTeam rule', () => {
   let matches: SourceMatch[];

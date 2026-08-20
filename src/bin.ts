@@ -6,11 +6,11 @@ import { JsonPrinter } from './printers/json_printer';
 import { BetStrategy } from './strategies/strategies';
 import { JsonSource } from './sources/json_source';
 import { ErrorHandledSource, RuleValidatedSource } from './sources/shared';
-import { DEFAULT_MATCH_RULES } from './sources/match_rules/match_rules';
+import { DEFAULT_MATCH_RULES } from './sources/rules';
 import { ConstantProbability } from './strategies/probabilities/probability';
 import { RuleValidatedProbability } from './strategies/probabilities/shared';
-import { DEFAULT_PREDICTION_RULES } from './strategies/probabilities/rules/rules';
-import { ConstantStake } from './strategies/stake/stakes';
+import { DEFAULT_PREDICTION_RULES } from './strategies/probabilities/rules';
+import { ConstantStake } from './strategies/stakes/stakes';
 
 export const OptionsSchema = z.object({
   date: z.iso.date(),

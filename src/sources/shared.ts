@@ -1,5 +1,5 @@
 import { type Source, SourceError, type SourceMatch } from './types';
-import type { MatchRule } from './match_rules/match_rules';
+import type { MatchRule } from './rules';
 
 export class ErrorHandledSource implements Source {
   constructor(private origin: Source) {}

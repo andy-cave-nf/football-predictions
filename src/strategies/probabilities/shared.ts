@@ -1,5 +1,5 @@
 import type { Probability } from './types';
-import type { PredictionRule } from './rules/rules';
+import type { PredictionRule } from './rules';
 import type { SourceMatch } from '../../sources/types';
 import type { OutcomeDistribution } from '../../shared';
 

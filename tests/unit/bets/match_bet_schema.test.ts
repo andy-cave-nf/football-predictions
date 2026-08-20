@@ -61,7 +61,7 @@ describe('Given the match bet schema', () => {
       expect(result.success).toBe(false);
     });
   });
-  describe('when a stake is less than 0', () => {
+  describe('when a stakes is less than 0', () => {
     beforeEach(() => {
       bets = [
         {

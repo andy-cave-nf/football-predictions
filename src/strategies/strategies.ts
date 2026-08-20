@@ -2,7 +2,7 @@ import type { Strategy } from './types';
 import type { SourceMatch } from '../sources/types';
 import type { MatchBetType } from '../bets/types';
 import type { Probability } from './probabilities/types';
-import type { Stake } from './stake/types';
+import type { Stake } from './stakes/types';
 
 export class BetStrategy implements Strategy {
   constructor(
