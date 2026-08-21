@@ -44,6 +44,6 @@ export type MatchBetRows = z.infer<typeof MatchBetRowsSchema>;
 export type MatchBetType = z.infer<typeof MatchBetSchema>;
 
 export interface MatchBets {
-  bets(): MatchBetRows;
-  printTo(printer: Printer): void;
+  bets(): Promise<MatchBetRows>;
+  printTo(printer: Printer): Promise<void>;
 }

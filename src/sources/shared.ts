@@ -3,9 +3,9 @@ import type { MatchRule } from './rules';
 
 export class ErrorHandledSource implements Source {
   constructor(private origin: Source) {}
-  matchesFor(date: string): SourceMatch[] {
+  async matchesFor(date: string): Promise<SourceMatch[]> {
     try {
-      return this.origin.matchesFor(date);
+      return await this.origin.matchesFor(date);
     } catch (error) {
       throw new SourceError('Source Error in results', { cause: error });
     }
@@ -17,8 +17,8 @@ export class RuleValidatedSource implements Source {
     private origin: Source,
     private rules: MatchRule[]
   ) {}
-  matchesFor(date: string): SourceMatch[] {
-    const matches = this.origin.matchesFor(date);
+  async matchesFor(date: string): Promise<SourceMatch[]> {
+    const matches = await this.origin.matchesFor(date);
     try {
       this.rules.forEach((rule) => {
         rule(matches);

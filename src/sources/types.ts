@@ -21,7 +21,7 @@ export const JsonSourceSchema = z.array(JsonMatchSchema);
 export type JsonSourceType = z.infer<typeof JsonSourceSchema>;
 
 export interface Source {
-  matchesFor(date: string): SourceMatch[];
+  matchesFor(date: string): Promise<SourceMatch[]>;
 }
 
 export class SourceError extends Error {

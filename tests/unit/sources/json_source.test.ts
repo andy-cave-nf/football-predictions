@@ -1,4 +1,4 @@
-import { JsonSource } from '../../../src/sources/json_source';
+import { JsonSource } from '../../../src/sources/sources';
 import type { SourceMatch } from '../../../src/sources/types';
 import { ZodError } from 'zod';
 
@@ -9,8 +9,8 @@ describe('Given a json fixture source', () => {
     source = new JsonSource('./fixtures/matches.fixture.json');
   });
   describe('when matchesFor is called with a date that has fixtures', () => {
-    beforeEach(() => {
-      matches = source.matchesFor('2000-01-01');
+    beforeEach(async () => {
+      matches = await source.matchesFor('2000-01-01');
     });
     it('returns the fixtures played on that date', () => {
       expect(matches).toStrictEqual([
@@ -28,24 +28,24 @@ describe('Given a json fixture source', () => {
     });
   });
   describe('when matchesFor is called on an empty date', () => {
-    beforeEach(() => {
-      matches = source.matchesFor('2000-01-04');
+    beforeEach(async () => {
+      matches = await source.matchesFor('2000-01-04');
     });
     it('returns an empty array', () => {
       expect(matches).toHaveLength(0);
     });
   });
   describe('when matchesFor is called on a date missing from source', () => {
-    beforeEach(() => {
-      matches = source.matchesFor('2000-01-10');
+    beforeEach(async () => {
+      matches = await source.matchesFor('2000-01-10');
     });
     it('returns an empty array', () => {
       expect(matches).toHaveLength(0);
     });
   });
   describe('when matchesFor is called on a date with malformed matches', () => {
-    it('a ZodError is raised', () => {
-      expect(() => source.matchesFor('2000-01-05')).toThrow(ZodError);
+    it('a ZodError is raised', async () => {
+      await expect(source.matchesFor('2000-01-05')).rejects.toThrow(ZodError);
     });
   });
 });
@@ -56,8 +56,8 @@ describe('Given a source that does not parse as Json', () => {
     source = new JsonSource('./fixtures/not-a-json.json');
   });
   describe('when matchesFor is called', () => {
-    it('raises a Syntax error', () => {
-      expect(() => source.matchesFor('2000-01-01')).toThrow(SyntaxError);
+    it('raises a Syntax error', async () => {
+      await expect(source.matchesFor('2000-01-01')).rejects.toThrow(SyntaxError);
     });
   });
 });
@@ -67,8 +67,8 @@ describe('Given a non-existant source', () => {
     source = new JsonSource('./fixtures/not-a-file.json');
   });
   describe('when matchesFor is called', () => {
-    it('raises an error', () => {
-      expect(() => source.matchesFor('2000-01-01')).toThrow();
+    it('raises an error', async () => {
+      await expect(source.matchesFor('2000-01-01')).rejects.toThrow();
     });
   });
 });
