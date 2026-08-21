@@ -4,7 +4,7 @@ import { run } from './run';
 import { z } from 'zod';
 import { JsonPrinter } from './printers/json_printer';
 import { BetStrategy } from './strategies/strategies';
-import { JsonSource } from './sources/json_source';
+import { JsonSource } from './sources/sources';
 import { ErrorHandledSource, RuleValidatedSource } from './sources/shared';
 import { DEFAULT_MATCH_RULES } from './sources/rules';
 import { ConstantProbability } from './strategies/probabilities/probability';

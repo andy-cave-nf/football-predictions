@@ -14,8 +14,8 @@ describe('Given a source that raises an error that is wrapped in error handling'
       };
       source = new ErrorHandledSource(erroredSource);
     });
-    it('raises a Source Error', () => {
-      expect(() => source.matchesFor('2020-01-01')).toThrow(SourceError);
+    it('raises a Source Error', async () => {
+      await expect(source.matchesFor('2020-01-01')).rejects.toThrow(SourceError);
     });
   });
 });
@@ -29,8 +29,8 @@ describe('Given a source', () => {
       };
       source = new RuleValidatedSource(new StubSource([]), [rule]);
     });
-    it('raises a Source Error', () => {
-      expect(() => source.matchesFor('2020-01-01')).toThrow(SourceError);
+    it('raises a Source Error', async () => {
+      await expect(source.matchesFor('2020-01-01')).rejects.toThrow(SourceError);
     });
   });
   describe('when a match is processed without a validation error', () => {

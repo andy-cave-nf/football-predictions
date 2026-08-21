@@ -8,7 +8,7 @@ import type { OutcomeDistribution } from '../../src/shared';
 
 export class StubSource implements Source {
   constructor(private matches: SourceMatch[]) {}
-  matchesFor(_date: string): SourceMatch[] {
+  async matchesFor(_date: string): Promise<SourceMatch[]> {
     return this.matches;
   }
 }
