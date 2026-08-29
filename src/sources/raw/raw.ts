@@ -19,9 +19,8 @@ export class EspnRaw implements Raw<typeof EspnFixturesSchema> {
     return await raw.json();
   }
   private url(date: string): string {
-    return `https://site.api.espn.com/apis/site/v2/sports/soccer/${this.competition}/scoreboard?dates=${date.replace('-', '')}`;
+    return `https://site.api.espn.com/apis/site/v2/sports/soccer/${this.competition}/scoreboard?dates=${date.replaceAll('-', '')}`;
   }
 }
-
 // And raise an error if date is not in the correct format (Zod input?)
 // And raise an error if competition is not one of the possible ones.

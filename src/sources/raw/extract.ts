@@ -24,6 +24,7 @@ export const espnExtract: Extract<typeof EspnFixturesSchema> = (
   raw: EspnFixtures,
   complete: CompletenessRule
 ): SourceMatch[] => {
+  if (raw.events == null) return [];
   const rawMatches: RawMatch[] = raw.events.flatMap((event) => {
     const competition = event.competitions[0];
     const home = competition?.competitors.find((c) => c.homeAway === 'home')?.team.name;

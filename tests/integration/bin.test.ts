@@ -1,21 +1,21 @@
-import { buildProgram } from '../../src/bin';
+import { buildProgram } from '../../src/bin/bin';
 import type { Command } from 'commander';
 import { readFileSync } from 'node:fs';
 import { MatchBetRowsSchema } from '../../src/bets/types';
-import { makeOutput } from './utils';
+import { makeOutput, testDependencies } from './utils';
 
 describe('Given a football predictions cli', () => {
   let program: Command;
   let date: string;
   let outputName: string;
   beforeEach(() => {
-    program = buildProgram();
+    program = buildProgram(testDependencies);
   });
   describe('when invoked with a valid date and valid output path', () => {
     beforeEach(() => {
       date = '2000-01-01';
       outputName = makeOutput();
-      program.parse(['node', 'cli', date, outputName]);
+      program.parse(['node', 'cli', date, '--filepath', outputName]);
     });
     it('writes valid bets to the given path', () => {
       const actual = JSON.parse(readFileSync(outputName, 'utf8'));
@@ -29,7 +29,7 @@ describe('Given a football predictions cli', () => {
       outputName = makeOutput();
     });
     it('an error is raised', () => {
-      expect(() => program.parse(['node', 'cli', date, outputName])).toThrow();
+      expect(() => program.parse(['node', 'cli', date, '--filepath', outputName])).toThrow();
     });
   });
   describe('when invoked with a non-json filename', () => {
@@ -38,7 +38,7 @@ describe('Given a football predictions cli', () => {
       outputName = makeOutput('not-a-filename');
     });
     it('an error is raised', () => {
-      expect(() => program.parse(['node', 'cli', date, outputName])).toThrow();
+      expect(() => program.parse(['node', 'cli', date, '--filepath', outputName])).toThrow();
     });
   });
   describe('when invoked with different dates', () => {
@@ -51,8 +51,8 @@ describe('Given a football predictions cli', () => {
       dateB = '2000-01-02';
       outputNameA = makeOutput('a.json');
       outputNameB = makeOutput('b.json');
-      program.parse(['node', 'cli', dateA, outputNameA]);
-      program.parse(['node', 'cli', dateB, outputNameB]);
+      program.parse(['node', 'cli', dateA, '--filepath', outputNameA]);
+      program.parse(['node', 'cli', dateB, '--filepath', outputNameB]);
     });
     it('returns different bets', () => {
       const betsA = JSON.parse(readFileSync(outputNameA, 'utf8'));

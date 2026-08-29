@@ -1,3 +1,4 @@
-import { buildProgram } from './bin';
+import { buildProgram } from './bin/bin';
+import { defaultDependencies } from './bin/dependencies';
 
-buildProgram().parse();
+buildProgram(defaultDependencies).parse();

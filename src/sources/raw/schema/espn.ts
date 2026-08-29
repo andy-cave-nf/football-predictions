@@ -28,8 +28,8 @@ const Provider = z.object({
   id: z.string(),
   name: z.string(),
   priority: z.number(),
-  displayName: z.string(),
-  logos: z.array(z.object({ href: z.string().url(), rel: z.array(z.string()) })),
+  displayName: z.string().optional(),
+  logos: z.array(z.object({ href: z.url(), rel: z.array(z.string()) })).optional(),
 });
 
 // ---------------------------------------------------------------------------
@@ -273,7 +273,7 @@ const Event = z.object({
 
 export const EspnFixturesSchema = z.object({
   leagues: z.array(League),
-  events: z.array(Event),
+  events: z.array(Event).optional(),
   provider: Provider.optional(),
 });
 
