@@ -1,7 +1,8 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "7 0 * * *"
+      timezone: 'UTC'
 jobs:
   run:
     runs-on: ubuntu-latest
