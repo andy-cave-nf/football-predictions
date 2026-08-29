@@ -18,7 +18,7 @@ export type MatchRule = (matches: SourceMatch[]) => void;
 export const sameTeam: MatchRule = (matches: SourceMatch[]) => {
   matches.forEach((match) => {
     if (cleanName(match.home) === cleanName(match.away)) {
-      throw new MatchRuleError('Boom');
+      throw new MatchRuleError('Home and away team should not be the same');
     }
   });
 };
@@ -43,4 +43,18 @@ export const uniqueTeams: MatchRule = (matches: SourceMatch[]) => {
   }
 };
 
-export const DEFAULT_MATCH_RULES: MatchRule[] = [sameTeam, emptyTeam, uniqueTeams];
+export const probabilitySumToGreaterThanOne: MatchRule = (matches: SourceMatch[]) => {
+  matches.forEach((match) => {
+    const totalOdds = 1 / match.odds.home + 1 / match.odds.away + 1 / match.odds.draw;
+    if (totalOdds <= 1) {
+      throw new MatchRuleError('Total Odds Probability should be greater than one');
+    }
+  });
+};
+
+export const DEFAULT_MATCH_RULES: MatchRule[] = [
+  sameTeam,
+  emptyTeam,
+  uniqueTeams,
+  probabilitySumToGreaterThanOne,
+];
