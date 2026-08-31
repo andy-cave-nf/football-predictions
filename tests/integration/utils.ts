@@ -13,12 +13,13 @@ import { DEFAULT_PREDICTION_RULES } from '../../src/strategies/probabilities/rul
 import { MaxStakeOnly, RuleValidatedStake } from '../../src/strategies/stakes/shared';
 import { KellyStake } from '../../src/strategies/stakes/stakes';
 import { DEFAULT_STAKE_RULES } from '../../src/strategies/stakes/rules';
+import { NullLog } from '../../src/logs';
 
 export function makeOutput(outputName: string = 'bets.json'): string {
   const outputPath = mkdtempSync(join(tmpdir(), 'bets'));
   return join(outputPath, outputName);
 }
-
+const testLog = new NullLog();
 export const testDependencies: Dependencies = {
   source: new RuleValidatedSource(
     new ErrorHandledSource(new JsonSource('./fixtures/matches.fixture.json')),
@@ -27,6 +28,8 @@ export const testDependencies: Dependencies = {
   printer: (filepath) => new JsonPrinter(filepath),
   strategy: new BetStrategy(
     new RuleValidatedProbability(new ConstantProbability(), DEFAULT_PREDICTION_RULES),
-    new RuleValidatedStake(new MaxStakeOnly(new KellyStake(0.5)), DEFAULT_STAKE_RULES)
+    new RuleValidatedStake(new MaxStakeOnly(new KellyStake(0.5)), DEFAULT_STAKE_RULES),
+    testLog
   ),
+  log: testLog,
 };

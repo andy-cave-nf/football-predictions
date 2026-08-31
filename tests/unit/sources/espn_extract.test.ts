@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 
 import { espnExtract, moneyLineToDecimal } from '../../../src/sources/raw/extract';
 import { allComplete } from '../../../src/sources/raw/completeness';
+import { NullLog } from '../../../src/logs';
 
 describe('Given a saved ESPN fixtures response for 2026-08-21', () => {
   let response: EspnFixtures;
@@ -12,7 +13,7 @@ describe('Given a saved ESPN fixtures response for 2026-08-21', () => {
   });
   describe('when it is parsed', () => {
     it('extracts the Arsenal vs Coventry match', () => {
-      expect(espnExtract(response, allComplete)).toStrictEqual([
+      expect(espnExtract(response, new NullLog(), allComplete)).toStrictEqual([
         {
           home: 'Arsenal',
           away: 'Coventry City',

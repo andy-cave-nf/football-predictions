@@ -209,7 +209,7 @@ const Broadcast = z.object({
 // ---------------------------------------------------------------------------
 
 const Ticket = z.object({
-  summary: z.string(),
+  summary: z.string().optional(),
   numberAvailable: z.number(),
   links: z.array(z.object({ href: z.url() })),
 });
@@ -272,7 +272,7 @@ const Event = z.object({
 // ---------------------------------------------------------------------------
 
 export const EspnFixturesSchema = z.object({
-  leagues: z.array(League),
+  leagues: z.array(League).optional(),
   events: z.array(Event).optional(),
   provider: Provider.optional(),
 });

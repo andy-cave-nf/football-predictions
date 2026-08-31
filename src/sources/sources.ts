@@ -5,6 +5,7 @@ import { JsonSourceSchema } from './raw/schema/json_fixture';
 import type { Extract } from './raw/extract';
 import { z } from 'zod';
 import { allComplete, type CompletenessRule } from './raw/completeness';
+import { type Logs } from '../logs';
 
 export class JsonSource implements Source {
   constructor(private filepath: string) {}
@@ -20,13 +21,15 @@ export class ApiSource<T extends z.ZodType> implements Source {
     private raw: Raw<T>,
     private extract: Extract<T>,
     private schema: T,
+    private log: Logs,
     private complete: CompletenessRule = allComplete
   ) {}
   async matchesFor(date: string): Promise<SourceMatch[]> {
-    return this.extract(this.schema.parse(await this.raw.fetch(date)), this.complete);
+    const fetched = await this.raw.fetch(date);
+    this.log.info('Matches fetched successfully.');
+    const parsed = this.schema.parse(fetched);
+    this.log.info('Matches parsed successfully.');
+    return this.extract(parsed, this.log, this.complete);
   }
 }
-//Connect up to the actual bin ts,sort out review comments
-// add logging,
-// add the fetch
 // add the skippable rules (no duplicate teams)

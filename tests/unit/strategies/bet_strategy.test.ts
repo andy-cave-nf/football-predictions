@@ -6,6 +6,7 @@ import { BetStrategy } from '../../../src/strategies/strategies';
 import type { MatchBetType } from '../../../src/bets/types';
 import type { Stake } from '../../../src/strategies/stakes/types';
 import type { OutcomeDistribution } from '../../../src/shared';
+import { NullLog } from '../../../src/logs';
 
 describe('Given a strategy with a probability calculation', () => {
   let strategy: Strategy;
@@ -19,7 +20,7 @@ describe('Given a strategy with a probability calculation', () => {
     prediction = { home: 0.1, away: 0.2, draw: 0.7 };
     stake = new StubStake(wager);
     probability = new StubProbability(prediction);
-    strategy = new BetStrategy(probability, stake);
+    strategy = new BetStrategy(probability, stake, new NullLog());
     match = { home: 'Arsenal', away: 'Chelsea', odds: { home: 1.2, away: 1.2, draw: 1.3 } };
   });
   describe('when a bet is created for a match', () => {
