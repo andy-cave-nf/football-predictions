@@ -15,21 +15,28 @@ import { DEFAULT_PREDICTION_RULES } from '../strategies/probabilities/rules';
 import { MaxStakeOnly, RuleValidatedStake } from '../strategies/stakes/shared';
 import { KellyStake } from '../strategies/stakes/stakes';
 import { DEFAULT_STAKE_RULES } from '../strategies/stakes/rules';
+import { ConsoleLog, type Logs } from '../logs';
 
 export type Dependencies = {
   source: Source;
   printer: (filepath: string) => Printer;
   strategy: Strategy;
+  log: Logs;
 };
 
+const defaultLog = new ConsoleLog();
 export const defaultDependencies: Dependencies = {
   source: new RuleValidatedSource(
-    new ErrorHandledSource(new ApiSource(new EspnRaw('eng.1'), espnExtract, EspnFixturesSchema)),
+    new ErrorHandledSource(
+      new ApiSource(new EspnRaw('eng.1', defaultLog), espnExtract, EspnFixturesSchema, defaultLog)
+    ),
     DEFAULT_MATCH_RULES
   ),
   printer: (filepath) => new JsonPrinter(filepath),
   strategy: new BetStrategy(
     new RuleValidatedProbability(new ConstantProbability(), DEFAULT_PREDICTION_RULES),
-    new RuleValidatedStake(new MaxStakeOnly(new KellyStake(0.5)), DEFAULT_STAKE_RULES)
+    new RuleValidatedStake(new MaxStakeOnly(new KellyStake(0.5)), DEFAULT_STAKE_RULES),
+    defaultLog
   ),
+  log: defaultLog,
 };

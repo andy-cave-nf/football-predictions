@@ -1,14 +1,12 @@
 import type { MatchBetRows } from '../../src/bets/types';
 import { run } from '../../src/run';
-import type { Source, SourceMatch } from '../../src/sources/types';
-import type { Printer } from '../../src/printers/types';
-import type { Strategy } from '../../src/strategies/types';
+import type { SourceMatch } from '../../src/sources/types';
 import { StubPrinter, StubSource, StubStrategy } from './utils';
+import type { Dependencies } from '../../src/bin/dependencies';
+import { NullLog } from '../../src/logs';
 
 describe('Given a source, a printer and a strategy', () => {
-  let source: Source;
-  let printer: Printer;
-  let strategy: Strategy;
+  let deps: Dependencies;
   let printed: MatchBetRows;
   let sourceMatches: SourceMatch[];
   beforeEach(() => {
@@ -17,16 +15,19 @@ describe('Given a source, a printer and a strategy', () => {
       { home: 'Arsenal', away: 'Chelsea', odds: { home: 1.1, away: 3.5, draw: 2.0 } },
       { home: 'Manchester United', away: 'Aston Villa', odds: { home: 1.8, away: 3.2, draw: 2.1 } },
     ];
-    source = new StubSource(sourceMatches);
-    printer = new StubPrinter(printed);
-    strategy = new StubStrategy();
+    deps = {
+      source: new StubSource(sourceMatches),
+      printer: (_filepath) => new StubPrinter(printed),
+      strategy: new StubStrategy(),
+      log: new NullLog(),
+    };
   });
   describe('when run is called with a date', () => {
     beforeEach(() => {
-      run('2000-01-01', source, printer, strategy);
+      run('2000-01-01', 'filepath', deps);
     });
     it('prints bets for each fixture on the given date', () => {
-      expect(printed).toStrictEqual(sourceMatches.map((m) => strategy.bet(m)));
+      expect(printed).toStrictEqual(sourceMatches.map((m) => deps.strategy.bet(m)));
     });
   });
 });

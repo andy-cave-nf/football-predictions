@@ -1,9 +1,7 @@
-import type { Source } from './sources/types';
-import type { Printer } from './printers/types';
-import type { Strategy } from './strategies/types';
 import { Bets } from './bets/bets';
+import type { Dependencies } from './bin/dependencies';
 
-export function run(date: string, source: Source, printer: Printer, strategy: Strategy) {
-  const bets = new Bets(source, strategy, date);
-  bets.printTo(printer);
+export async function run(date: string, filepath: string, deps: Dependencies) {
+  const bets = new Bets(deps.source, deps.strategy, deps.log, date);
+  await bets.printTo(deps.printer(filepath));
 }

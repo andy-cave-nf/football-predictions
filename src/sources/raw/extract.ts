@@ -4,13 +4,16 @@ import type { RawMatch, SourceMatch } from '../types';
 import { type StubJson, StubJsonSchema } from './schema/json_fixture';
 import { z } from 'zod';
 import { allComplete, type CompletenessRule } from './completeness';
+import { type Logs } from '../../logs';
 
 export type Extract<T extends z.ZodType> = (
   raw: z.infer<T>,
+  log: Logs,
   complete: CompletenessRule
 ) => SourceMatch[];
 export const stubExtract: Extract<typeof StubJsonSchema> = (
   raw: StubJson,
+  _log: Logs,
   _complete: CompletenessRule = allComplete
 ): SourceMatch[] => {
   const games = raw.games;
@@ -22,9 +25,13 @@ export const stubExtract: Extract<typeof StubJsonSchema> = (
 };
 export const espnExtract: Extract<typeof EspnFixturesSchema> = (
   raw: EspnFixtures,
+  log: Logs,
   complete: CompletenessRule
 ): SourceMatch[] => {
-  if (raw.events == null) return [];
+  if (raw.events == null) {
+    log.info('No espn events found');
+    return [];
+  }
   const rawMatches: RawMatch[] = raw.events.flatMap((event) => {
     const competition = event.competitions[0];
     const home = competition?.competitors.find((c) => c.homeAway === 'home')?.team.name;
@@ -48,6 +55,7 @@ export const espnExtract: Extract<typeof EspnFixturesSchema> = (
       },
     ];
   });
+  log.info(`${rawMatches.length} matches found`);
   return complete(rawMatches);
 };
 

@@ -16,15 +16,15 @@ export function buildProgram(deps: Dependencies): Command {
   program.name('football-predictions').description('CLI to football predictions');
 
   program
-    .argument('[date]', 'date string as YYYY-MM-DD', format(new Date(), 'yyyy-MM-dd'))
+    .option('-d, --date <date>', 'date string as YYYY-MM-DD', format(new Date(), 'yyyy-MM-dd'))
     .option('-o, --filepath <path>', 'output json path', 'bets.json')
-    .action((date: string, options: { filepath: string }) => {
-      const result = OptionsSchema.safeParse({ date, filepath: options.filepath });
+    .action(async (options: { date: string; filepath: string }) => {
+      const result = OptionsSchema.safeParse({ date: options.date, filepath: options.filepath });
       if (!result.success) {
         console.error(z.prettifyError(result.error));
         process.exit(1);
       }
-      run(result.data.date, deps.source, deps.printer(result.data.filepath), deps.strategy);
+      await run(result.data.date, result.data.filepath, deps);
     });
   return program;
 }

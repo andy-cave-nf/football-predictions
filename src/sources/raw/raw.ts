@@ -1,6 +1,7 @@
 import { HARDCODED_RAWJSON, type StubJson, StubJsonSchema } from './schema/json_fixture';
 import { z } from 'zod';
 import type { EspnFixtures, EspnFixturesSchema } from './schema/espn';
+import type { Logs } from '../../logs';
 
 export interface Raw<T extends z.ZodType> {
   fetch(date: string): Promise<z.infer<T>>;
@@ -13,8 +14,12 @@ export class RawStub implements Raw<typeof StubJsonSchema> {
 }
 
 export class EspnRaw implements Raw<typeof EspnFixturesSchema> {
-  constructor(private competition: string) {}
+  constructor(
+    private competition: string,
+    private log: Logs
+  ) {}
   async fetch(date: string): Promise<EspnFixtures> {
+    this.log.info(`Fetching Espn fixtures for ${this.competition} on ${date} ......`);
     const raw = await fetch(this.url(date));
     return await raw.json();
   }
