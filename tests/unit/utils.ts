@@ -5,6 +5,7 @@ import type { Strategy } from '../../src/strategies/types';
 import type { Probability } from '../../src/strategies/probabilities/types';
 import type { Stake } from '../../src/strategies/stakes/types';
 import type { OutcomeDistribution } from '../../src/shared';
+import type { Ratings } from '../../src/strategies/probabilities/ratings';
 
 export class StubSource implements Source {
   constructor(private matches: SourceMatch[]) {}
@@ -47,6 +48,16 @@ export class StubStake implements Stake {
   }
 }
 
+export class StubRatings<T> implements Ratings<T> {
+  constructor(private ratings: Record<string, T>) {}
+  ratingFor(id: string): T {
+    const rating = this.ratings[id];
+    if (rating === undefined) {
+      throw new Error(`Rating not found for ${id}`);
+    }
+    return rating;
+  }
+}
 export const HARDCODED_MATCH: SourceMatch = {
   home: 'Arsenal',
   away: 'Chelsea',
