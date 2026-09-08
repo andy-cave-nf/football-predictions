@@ -4,7 +4,7 @@ import type { MatchBetRows, MatchBetType } from '../../src/bets/types';
 import type { Strategy } from '../../src/strategies/types';
 import type { Probability } from '../../src/strategies/probabilities/types';
 import type { Stake } from '../../src/strategies/stakes/types';
-import type { OutcomeDistribution } from '../../src/shared';
+import type { MatchSource, OutcomeDistribution } from '../../src/shared';
 import type { Ratings } from '../../src/strategies/probabilities/ratings';
 
 export class StubSource implements Source {
@@ -50,7 +50,7 @@ export class StubStake implements Stake {
 
 export class StubRatings<T> implements Ratings<T> {
   constructor(private ratings: Record<string, T>) {}
-  ratingFor(id: string): T {
+  ratingFor(id: string, _source: MatchSource): T {
     const rating = this.ratings[id];
     if (rating === undefined) {
       throw new Error(`Rating not found for ${id}`);

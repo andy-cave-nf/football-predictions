@@ -3,3 +3,4 @@ export type OutcomeDistribution = {
   away: number;
   draw: number;
 };
+export type MatchSource = 'espn' | 'jsonSource' | 'stub';

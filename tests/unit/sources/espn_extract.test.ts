@@ -24,7 +24,7 @@ describe('Given a saved ESPN fixtures response for 2026-08-21', () => {
             away: 14,
             draw: 7,
           },
-          source: 'ESPN',
+          source: 'espn',
         },
       ]);
     });

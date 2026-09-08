@@ -27,7 +27,7 @@ describe('Given a Premier League source for 2026-08-21', () => {
             away: 6,
             draw: 4,
           },
-          source: 'JsonStub',
+          source: 'stub',
         },
       ]);
     });

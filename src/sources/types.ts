@@ -1,3 +1,5 @@
+import type { MatchSource } from '../shared';
+
 export type Team = {
   id: string;
   name: string;
@@ -8,7 +10,7 @@ export type RawMatch = {
   home: { id: string | null; name: string | null };
   away: { id: string | null; name: string | null };
   odds: { home: number | null; away: number | null; draw: number | null } | null;
-  source: string;
+  source: MatchSource;
 };
 
 export type SourceMatch = {
@@ -17,7 +19,7 @@ export type SourceMatch = {
   home: Team;
   away: Team;
   odds: { home: number; away: number; draw: number };
-  source: string;
+  source: MatchSource;
 };
 
 export interface Source {
