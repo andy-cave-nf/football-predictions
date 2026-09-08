@@ -18,9 +18,12 @@ export const stubExtract: Extract<typeof StubJsonSchema> = (
 ): SourceMatch[] => {
   const games = raw.games;
   return games.map((game) => ({
+    matchId: game.matchId,
+    kickoff: game.kickoff,
     home: game.home,
     away: game.away,
     odds: { home: 1.2, away: 6.0, draw: 4.0 },
+    source: 'JsonStub',
   }));
 };
 export const espnExtract: Extract<typeof EspnFixturesSchema> = (
@@ -33,14 +36,18 @@ export const espnExtract: Extract<typeof EspnFixturesSchema> = (
     return [];
   }
   const rawMatches: RawMatch[] = raw.events.flatMap((event) => {
+    const matchId = event.id;
+    const kickoff = event.date;
     const competition = event.competitions[0];
-    const home = competition?.competitors.find((c) => c.homeAway === 'home')?.team.name;
-    const away = competition?.competitors.find((c) => c.homeAway === 'away')?.team.name;
+    const homeData = competition?.competitors.find((c) => c.homeAway === 'home');
+    const awayData = competition?.competitors.find((c) => c.homeAway === 'away');
     const moneyLine = competition?.odds?.[0]?.moneyline;
     return [
       {
-        home: home ?? null,
-        away: away ?? null,
+        matchId: matchId ?? null,
+        kickoff: kickoff ?? null,
+        home: { id: homeData?.team.id ?? null, name: homeData?.team.name ?? null },
+        away: { id: awayData?.team.id ?? null, name: awayData?.team.name ?? null },
         odds:
           moneyLine != null
             ? {
@@ -52,10 +59,11 @@ export const espnExtract: Extract<typeof EspnFixturesSchema> = (
                     : null,
               }
             : null,
+        source: 'ESPN',
       },
     ];
   });
-  log.info(`${rawMatches.length} matches found`);
+  log.info(`${rawMatches.length} matches extracted`);
   return complete(rawMatches);
 };
 

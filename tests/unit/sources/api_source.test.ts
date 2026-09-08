@@ -18,13 +18,16 @@ describe('Given a Premier League source for 2026-08-21', () => {
     it('returns the Arsenal vs Coventry match', () => {
       expect(matches).toStrictEqual([
         {
-          home: 'Arsenal',
-          away: 'Coventry',
+          matchId: '1',
+          kickoff: '2000-01-03T15:00:00Z',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Coventry' },
           odds: {
             home: 1.2,
             away: 6,
             draw: 4,
           },
+          source: 'JsonStub',
         },
       ]);
     });

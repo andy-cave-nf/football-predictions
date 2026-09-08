@@ -12,8 +12,22 @@ describe('Given a source, a printer and a strategy', () => {
   beforeEach(() => {
     printed = [];
     sourceMatches = [
-      { home: 'Arsenal', away: 'Chelsea', odds: { home: 1.1, away: 3.5, draw: 2.0 } },
-      { home: 'Manchester United', away: 'Aston Villa', odds: { home: 1.8, away: 3.2, draw: 2.1 } },
+      {
+        matchId: '1',
+        kickoff: '2000-01-01T17:30:00Z',
+        source: 'stub',
+        home: { id: '1', name: 'Arsenal' },
+        away: { id: '2', name: 'Spurs' },
+        odds: { home: 1.1, away: 3.5, draw: 2.0 },
+      },
+      {
+        matchId: '2',
+        kickoff: '2000-01-01T17:30:00Z',
+        source: 'stub',
+        home: { id: '3', name: 'Manchester United' },
+        away: { id: '4', name: 'Aston Villa' },
+        odds: { home: 1.8, away: 3.2, draw: 2.1 },
+      },
     ];
     deps = {
       source: new StubSource(sourceMatches),

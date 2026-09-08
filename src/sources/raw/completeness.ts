@@ -4,8 +4,12 @@ export type CompletenessRule = (match: RawMatch[]) => SourceMatch[];
 
 const isComplete = (m: RawMatch): m is SourceMatch => {
   return (
-    m.home !== null &&
-    m.away !== null &&
+    m.matchId !== null &&
+    m.kickoff !== null &&
+    m.home.id !== null &&
+    m.home.name !== null &&
+    m.away.id !== null &&
+    m.away.name !== null &&
     m.odds !== null &&
     m.odds?.home !== null &&
     m.odds?.away !== null &&

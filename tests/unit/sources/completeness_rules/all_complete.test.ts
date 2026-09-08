@@ -6,24 +6,168 @@ describe('Given the skip null rule', () => {
   describe('when the match is parsed with non null entries', () => {
     beforeEach(() => {
       matches = [
-        { home: 'not empty either', away: 'not empty', odds: { home: 1.2, away: 1.3, draw: 1.5 } },
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
       ];
     });
-    it('skips the match', () => {
+    it('returns the match', () => {
       expect(allComplete(matches)).toStrictEqual(matches);
     });
   });
-  describe('when the match is parsed with a null home', () => {
+  describe('when the match is parsed with a null matchId', () => {
     beforeEach(() => {
-      matches = [{ home: null, away: 'not empty', odds: { home: 1.2, away: 1.3, draw: 1.5 } }];
+      matches = [
+        {
+          matchId: null,
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
+      ];
     });
     it('skips the match', () => {
       expect(allComplete(matches)).toStrictEqual([]);
     });
   });
-  describe('when the match is parsed with a null away', () => {
+  describe('when the match is parsed with a null kickoff', () => {
     beforeEach(() => {
-      matches = [{ home: 'not empty', away: null, odds: { home: 1.2, away: 1.3, draw: 1.5 } }];
+      matches = [
+        {
+          matchId: '1',
+          kickoff: null,
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null home id', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: null, name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null home name', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: null },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null away id', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: null, name: 'Spurs' },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null away name', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: null },
+          odds: { home: 1.1, away: 3.5, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null home odds', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: null, away: 3.5, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null away odds', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.2, away: null, draw: 2.0 },
+        },
+      ];
+    });
+    it('skips the match', () => {
+      expect(allComplete(matches)).toStrictEqual([]);
+    });
+  });
+  describe('when the match is parsed with a null draw odds', () => {
+    beforeEach(() => {
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: { home: 1.2, away: 3.5, draw: null },
+        },
+      ];
     });
     it('skips the match', () => {
       expect(allComplete(matches)).toStrictEqual([]);
@@ -31,7 +175,16 @@ describe('Given the skip null rule', () => {
   });
   describe('when the match is parsed with a null odds', () => {
     beforeEach(() => {
-      matches = [{ home: 'not empty', away: 'also not empty', odds: null }];
+      matches = [
+        {
+          matchId: '1',
+          kickoff: '2000-01-01T17:30:00Z',
+          source: 'stub',
+          home: { id: '1', name: 'Arsenal' },
+          away: { id: '2', name: 'Spurs' },
+          odds: null,
+        },
+      ];
     });
     it('skips the match', () => {
       expect(allComplete(matches)).toStrictEqual([]);

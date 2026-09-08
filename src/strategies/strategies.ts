@@ -15,12 +15,12 @@ export class BetStrategy implements Strategy {
     const prediction = this.probability.forMatch(match);
     const wager = this.stake.stake(prediction, match.odds);
     this.log.info(
-      `${match.home}(${match.odds.home}) vs ${match.away}(${match.odds.away}) draw:${match.odds.draw}`
+      `${match.home.name}(${match.odds.home}) vs ${match.away.name}(${match.odds.away}) draw:(${match.odds.draw})`
     );
     this.log.info(`Probability H:${prediction.home} A:${prediction.away}, D:${prediction.draw}`);
     this.log.info(`Wager: H:${wager.home} A:${wager.away}, D:${wager.draw}`);
     return {
-      teams: { home: match.home, away: match.away },
+      teams: { home: match.home.name, away: match.away.name },
       stake: wager,
       probability: prediction,
       odds: match.odds,
