@@ -21,8 +21,8 @@ export class RatedProbability<T> implements Probability {
   ) {}
   forMatch(match: SourceMatch): OutcomeDistribution {
     return this.calculation(
-      this.ratings.ratingFor(match.home.id),
-      this.ratings.ratingFor(match.away.id)
+      this.ratings.ratingFor(match.home.id, match.source),
+      this.ratings.ratingFor(match.away.id, match.source)
     );
   }
 }

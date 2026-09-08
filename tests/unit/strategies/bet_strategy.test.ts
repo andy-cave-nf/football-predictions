@@ -24,7 +24,7 @@ describe('Given a strategy with a probability calculation', () => {
     match = {
       matchId: '1',
       kickoff: '2000-01-02T12:30:00Z',
-      source: 'Stub',
+      source: 'stub',
       home: { id: '1', name: 'Arsenal' },
       away: { id: '2', name: 'Chelsea' },
       odds: { home: 1.2, away: 1.2, draw: 1.3 },

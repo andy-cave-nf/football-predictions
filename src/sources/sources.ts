@@ -19,7 +19,7 @@ export class JsonSource implements Source {
         home: f.home,
         away: f.away,
         odds: f.odds,
-        source: 'JsonSource',
+        source: 'jsonSource',
       };
     });
   }

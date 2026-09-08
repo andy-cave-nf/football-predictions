@@ -23,7 +23,7 @@ export const stubExtract: Extract<typeof StubJsonSchema> = (
     home: game.home,
     away: game.away,
     odds: { home: 1.2, away: 6.0, draw: 4.0 },
-    source: 'JsonStub',
+    source: 'stub',
   }));
 };
 export const espnExtract: Extract<typeof EspnFixturesSchema> = (
@@ -59,7 +59,7 @@ export const espnExtract: Extract<typeof EspnFixturesSchema> = (
                     : null,
               }
             : null,
-        source: 'ESPN',
+        source: 'espn',
       },
     ];
   });
