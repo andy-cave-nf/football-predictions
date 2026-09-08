@@ -14,8 +14,15 @@ describe('Given a match and a rating based calculation', () => {
   let result: OutcomeDistribution;
   describe('when the probability is calculated', () => {
     beforeEach(() => {
-      match = { home: 'Arsenal', away: 'Chelsea', odds: { home: 1.2, away: 1.6, draw: 2.0 } };
-      rating = new StubRatings<number>({ Arsenal: 10, Chelsea: 12 });
+      match = {
+        matchId: '1',
+        kickoff: '2000-01-01T17:30:00Z',
+        source: 'stub',
+        home: { id: '1', name: 'Arsenal' },
+        away: { id: '2', name: 'Spurs' },
+        odds: { home: 1.2, away: 1.6, draw: 2.0 },
+      };
+      rating = new StubRatings<number>({ '1': 10, '2': 12 });
       calculation = (home: number, away: number) => {
         return {
           home: home > away ? 1 : 0,

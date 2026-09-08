@@ -26,7 +26,7 @@ export class StubPrinter implements Printer {
 export class StubStrategy implements Strategy {
   bet(match: SourceMatch): MatchBetType {
     return {
-      teams: { home: match.home, away: match.away },
+      teams: { home: match.home.name, away: match.away.name },
       probability: { home: 0.3, away: 0.3, draw: 0.4 },
       odds: { home: 1.1, away: 1.1, draw: 1.1 },
       stake: { home: 0.1, away: 0.1, draw: 0.1 },
@@ -59,12 +59,15 @@ export class StubRatings<T> implements Ratings<T> {
   }
 }
 export const HARDCODED_MATCH: SourceMatch = {
-  home: 'Arsenal',
-  away: 'Chelsea',
-  odds: { home: 1.5, away: 1.4, draw: 1.6 },
+  matchId: '1',
+  kickoff: '2000-01-01T17:30:00Z',
+  source: 'stub',
+  home: { id: '1', name: 'Arsenal' },
+  away: { id: '2', name: 'Spurs' },
+  odds: { home: 2.0, away: 2.0, draw: 3.0 },
 };
 export const HARDCODED_BET: MatchBetType = {
-  teams: { home: HARDCODED_MATCH.home, away: HARDCODED_MATCH.away },
+  teams: { home: HARDCODED_MATCH.home.name, away: HARDCODED_MATCH.away.name },
   stake: { home: 0.1, away: 0.1, draw: 0.1 },
   probability: { home: 0.3, away: 0.3, draw: 0.4 },
   odds: HARDCODED_MATCH.odds,

@@ -17,7 +17,7 @@ export class MatchRuleError extends Error {
 export type MatchRule = (matches: SourceMatch[]) => void;
 export const sameTeam: MatchRule = (matches: SourceMatch[]) => {
   matches.forEach((match) => {
-    if (cleanName(match.home) === cleanName(match.away)) {
+    if (match.home.id === match.away.id) {
       throw new MatchRuleError('Home and away team should not be the same');
     }
   });
@@ -25,8 +25,16 @@ export const sameTeam: MatchRule = (matches: SourceMatch[]) => {
 
 export const emptyTeam: MatchRule = (matches: SourceMatch[]) => {
   matches.forEach((match) => {
-    const home = match.home == null || cleanName(match.home) === '';
-    const away = match.away == null || cleanName(match.away) === '';
+    const home =
+      match.home.name == null ||
+      cleanName(match.home.name) === '' ||
+      match.home.id == null ||
+      cleanName(match.home.id) === '';
+    const away =
+      match.away.name == null ||
+      cleanName(match.away.name) === '' ||
+      match.away.id == null ||
+      cleanName(match.away.id) === '';
     if (home) {
       throw new MatchRuleError('Home team should not be empty');
     }
@@ -37,7 +45,7 @@ export const emptyTeam: MatchRule = (matches: SourceMatch[]) => {
 };
 
 export const uniqueTeams: MatchRule = (matches: SourceMatch[]) => {
-  const teams = matches.flatMap((match) => [cleanName(match.home), cleanName(match.away)]);
+  const teams = matches.flatMap((match) => [match.home.id, match.away.id]);
   if (teams.length !== new Set(teams).size) {
     throw new MatchRuleError('Teams must be unique');
   }

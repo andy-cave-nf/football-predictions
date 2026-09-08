@@ -15,14 +15,20 @@ describe('Given a json fixture source', () => {
     it('returns the fixtures played on that date', () => {
       expect(matches).toStrictEqual([
         {
-          home: 'Testby United',
-          away: 'Fakeham Rovers',
+          matchId: '1',
+          kickoff: '2000-01-01T15:00:00Z',
+          home: { id: '1', name: 'Testby United' },
+          away: { id: '2', name: 'Fakeham Rovers' },
           odds: { home: 1.1, away: 4.0, draw: 1.5 },
+          source: 'JsonSource',
         },
         {
-          home: 'Mockingham City',
-          away: 'Stubbington Town',
+          matchId: '2',
+          kickoff: '2000-01-01T17:30:00Z',
+          home: { id: '3', name: 'Mockingham City' },
+          away: { id: '4', name: 'Stubbington Town' },
           odds: { home: 1.5, away: 1.5, draw: 3.0 },
+          source: 'JsonSource',
         },
       ]);
     });

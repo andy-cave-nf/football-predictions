@@ -12,7 +12,16 @@ export class JsonSource implements Source {
   async matchesFor(date: string): Promise<SourceMatch[]> {
     const raw = JSON.parse(readFileSync(this.filepath, 'utf8'));
     const fixtures = JsonSourceSchema.parse(raw[date] ?? []);
-    return fixtures.map((f) => ({ home: f.home, away: f.away, odds: f.odds }));
+    return fixtures.map((f) => {
+      return {
+        matchId: f.matchId,
+        kickoff: f.kickoff,
+        home: f.home,
+        away: f.away,
+        odds: f.odds,
+        source: 'JsonSource',
+      };
+    });
   }
 }
 

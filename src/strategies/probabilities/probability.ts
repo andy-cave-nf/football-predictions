@@ -20,6 +20,9 @@ export class RatedProbability<T> implements Probability {
     private calculation: ProbabilityCalculation<T>
   ) {}
   forMatch(match: SourceMatch): OutcomeDistribution {
-    return this.calculation(this.ratings.ratingFor(match.home), this.ratings.ratingFor(match.away));
+    return this.calculation(
+      this.ratings.ratingFor(match.home.id),
+      this.ratings.ratingFor(match.away.id)
+    );
   }
 }

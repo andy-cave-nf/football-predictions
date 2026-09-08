@@ -15,13 +15,16 @@ describe('Given a saved ESPN fixtures response for 2026-08-21', () => {
     it('extracts the Arsenal vs Coventry match', () => {
       expect(espnExtract(response, new NullLog(), allComplete)).toStrictEqual([
         {
-          home: 'Arsenal',
-          away: 'Coventry City',
+          matchId: '401879301',
+          kickoff: '2026-08-21T19:00Z',
+          home: { id: '359', name: 'Arsenal' },
+          away: { id: '388', name: 'Coventry City' },
           odds: {
             home: 1.2,
             away: 14,
             draw: 7,
           },
+          source: 'ESPN',
         },
       ]);
     });
