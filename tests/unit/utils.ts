@@ -5,7 +5,11 @@ import type { Strategy } from '../../src/strategies/types';
 import type { Probability } from '../../src/strategies/probabilities/types';
 import type { Stake } from '../../src/strategies/stakes/types';
 import type { MatchSource, OutcomeDistribution } from '../../src/shared';
-import type { Ratings } from '../../src/strategies/probabilities/ratings';
+import type {
+  Ratings,
+  RatingsSource,
+  TeamMapping,
+} from '../../src/strategies/probabilities/ratings';
 
 export class StubSource implements Source {
   constructor(private matches: SourceMatch[]) {}
@@ -48,6 +52,31 @@ export class StubStake implements Stake {
   }
 }
 
+export class StubTeamMapping implements TeamMapping {
+  constructor(private mapping: Map<MatchSource, Map<string, string>>) {}
+  mappedId(id: string, source: MatchSource): string {
+    const teams = this.mapping.get(source);
+    if (teams === undefined) {
+      throw new Error('Missing source');
+    }
+    const team = teams.get(id);
+    if (team === undefined) {
+      throw new Error('Missing id');
+    }
+    return team;
+  }
+}
+
+export class StubRatingsSource<T> implements RatingsSource<T> {
+  constructor(private ratings: Record<string, T>) {}
+  ratingFor(id: string): T {
+    const rating = this.ratings[id];
+    if (!rating) {
+      throw new Error('Missing rating');
+    }
+    return rating;
+  }
+}
 export class StubRatings<T> implements Ratings<T> {
   constructor(private ratings: Record<string, T>) {}
   ratingFor(id: string, _source: MatchSource): T {
