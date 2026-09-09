@@ -11,8 +11,8 @@ export class BetStrategy implements Strategy {
     private stake: Stake,
     private log: Logs
   ) {}
-  bet(match: SourceMatch): MatchBetType {
-    const prediction = this.probability.forMatch(match);
+  async bet(match: SourceMatch): Promise<MatchBetType> {
+    const prediction = await this.probability.forMatch(match);
     const wager = this.stake.stake(prediction, match.odds);
     this.log.info(
       `${match.home.name}(${match.odds.home}) vs ${match.away.name}(${match.odds.away}) draw:(${match.odds.draw})`

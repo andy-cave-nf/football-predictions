@@ -37,11 +37,12 @@ describe('Given a source, a printer and a strategy', () => {
     };
   });
   describe('when run is called with a date', () => {
-    beforeEach(() => {
-      run('2000-01-01', 'filepath', deps);
+    beforeEach(async () => {
+      await run('2000-01-01', 'filepath', deps);
     });
-    it('prints bets for each fixture on the given date', () => {
-      expect(printed).toStrictEqual(sourceMatches.map((m) => deps.strategy.bet(m)));
+    it('prints bets for each fixture on the given date', async () => {
+      const expected = await Promise.all(sourceMatches.map((m) => deps.strategy.bet(m)));
+      expect(printed).toStrictEqual(expected);
     });
   });
 });

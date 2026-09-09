@@ -1,7 +1,6 @@
 import type { SourceMatch } from '../../../../src/sources/types';
-import type { Probability } from '../../../../src/strategies/probabilities/types';
+import type { Probability, Ratings } from '../../../../src/strategies/probabilities/types';
 import type { OutcomeDistribution } from '../../../../src/shared';
-import type { Ratings } from '../../../../src/strategies/probabilities/ratings';
 import { StubRatings } from '../../utils';
 import type { ProbabilityCalculation } from '../../../../src/strategies/probabilities/calculations';
 import { RatedProbability } from '../../../../src/strategies/probabilities/probability';
@@ -13,7 +12,7 @@ describe('Given a match and a rating based calculation', () => {
   let calculation: ProbabilityCalculation<number>;
   let result: OutcomeDistribution;
   describe('when the probability is calculated', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       match = {
         matchId: '1',
         kickoff: '2000-01-01T17:30:00Z',
@@ -31,7 +30,7 @@ describe('Given a match and a rating based calculation', () => {
         };
       };
       probability = new RatedProbability(rating, calculation);
-      result = probability.forMatch(match);
+      result = await probability.forMatch(match);
     });
     it('returns a probability derived from the ratings', () => {
       expect(result).toStrictEqual({ home: 0, away: 1, draw: 0 });

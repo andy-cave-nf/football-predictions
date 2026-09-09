@@ -1,10 +1,10 @@
-import {
-  MappedRatings,
-  type Ratings,
-  type RatingsSource,
-  type TeamMapping,
-} from '../../../../src/strategies/probabilities/ratings';
+import { MappedRatings } from '../../../../src/strategies/probabilities/ratings';
 import { StubRatingsSource, StubTeamMapping } from '../../utils';
+import type {
+  Ratings,
+  RatingsSource,
+  TeamMapping,
+} from '../../../../src/strategies/probabilities/types';
 
 describe('Given a rating source and a mapping from team ids to rating-source ids', () => {
   let ratings: Ratings<number>;
@@ -27,8 +27,8 @@ describe('Given a rating source and a mapping from team ids to rating-source ids
   });
   describe('when queried with a team id that exists in the mapping', () => {
     let result: number;
-    beforeEach(() => {
-      result = ratings.ratingFor('1', 'espn');
+    beforeEach(async () => {
+      result = await ratings.ratingFor('1', 'espn');
     });
     it('resolves the id and returns the rating from the source', () => {
       expect(result).toEqual(100);
