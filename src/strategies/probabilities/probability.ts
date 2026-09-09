@@ -1,11 +1,10 @@
-import type { Probability } from './types';
+import type { Probability, Ratings } from './types';
 import type { SourceMatch } from '../../sources/types';
 import type { OutcomeDistribution } from '../../shared';
-import type { Ratings } from './ratings';
 import type { ProbabilityCalculation } from './calculations';
 
 export class ConstantProbability implements Probability {
-  forMatch(_match: SourceMatch): OutcomeDistribution {
+  async forMatch(_match: SourceMatch): Promise<OutcomeDistribution> {
     return {
       home: 0.2,
       away: 0.2,
@@ -19,10 +18,10 @@ export class RatedProbability<T> implements Probability {
     private ratings: Ratings<T>,
     private calculation: ProbabilityCalculation<T>
   ) {}
-  forMatch(match: SourceMatch): OutcomeDistribution {
+  async forMatch(match: SourceMatch): Promise<OutcomeDistribution> {
     return this.calculation(
-      this.ratings.ratingFor(match.home.id, match.source),
-      this.ratings.ratingFor(match.away.id, match.source)
+      await this.ratings.ratingFor(match.home.id, match.source),
+      await this.ratings.ratingFor(match.away.id, match.source)
     );
   }
 }

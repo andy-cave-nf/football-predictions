@@ -32,8 +32,8 @@ describe('Given a strategy with a probability calculation', () => {
   });
   describe('when a bet is created for a match', () => {
     let bet: MatchBetType;
-    beforeEach(() => {
-      bet = strategy.bet(match);
+    beforeEach(async () => {
+      bet = await strategy.bet(match);
     });
     it('returns the calculated probability in the bet', () => {
       expect(bet.probability).toStrictEqual(prediction);

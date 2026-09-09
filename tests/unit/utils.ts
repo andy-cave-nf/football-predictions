@@ -2,14 +2,14 @@ import type { Source, SourceMatch } from '../../src/sources/types';
 import type { Printer } from '../../src/printers/types';
 import type { MatchBetRows, MatchBetType } from '../../src/bets/types';
 import type { Strategy } from '../../src/strategies/types';
-import type { Probability } from '../../src/strategies/probabilities/types';
-import type { Stake } from '../../src/strategies/stakes/types';
-import type { MatchSource, OutcomeDistribution } from '../../src/shared';
 import type {
+  Probability,
   Ratings,
   RatingsSource,
   TeamMapping,
-} from '../../src/strategies/probabilities/ratings';
+} from '../../src/strategies/probabilities/types';
+import type { Stake } from '../../src/strategies/stakes/types';
+import type { MatchSource, OutcomeDistribution } from '../../src/shared';
 
 export class StubSource implements Source {
   constructor(private matches: SourceMatch[]) {}
@@ -28,7 +28,7 @@ export class StubPrinter implements Printer {
 }
 
 export class StubStrategy implements Strategy {
-  bet(match: SourceMatch): MatchBetType {
+  async bet(match: SourceMatch): Promise<MatchBetType> {
     return {
       teams: { home: match.home.name, away: match.away.name },
       probability: { home: 0.3, away: 0.3, draw: 0.4 },
@@ -40,7 +40,7 @@ export class StubStrategy implements Strategy {
 
 export class StubProbability implements Probability {
   constructor(private prediction: OutcomeDistribution = { home: 0.3, away: 0.3, draw: 0.4 }) {}
-  forMatch(_match: SourceMatch): OutcomeDistribution {
+  async forMatch(_match: SourceMatch): Promise<OutcomeDistribution> {
     return this.prediction;
   }
 }
@@ -54,7 +54,7 @@ export class StubStake implements Stake {
 
 export class StubTeamMapping implements TeamMapping {
   constructor(private mapping: Map<MatchSource, Map<string, string>>) {}
-  mappedId(id: string, source: MatchSource): string {
+  async mappedId(id: string, source: MatchSource): Promise<string> {
     const teams = this.mapping.get(source);
     if (teams === undefined) {
       throw new Error('Missing source');
@@ -69,7 +69,7 @@ export class StubTeamMapping implements TeamMapping {
 
 export class StubRatingsSource<T> implements RatingsSource<T> {
   constructor(private ratings: Record<string, T>) {}
-  ratingFor(id: string): T {
+  async ratingFor(id: string): Promise<T> {
     const rating = this.ratings[id];
     if (!rating) {
       throw new Error('Missing rating');
@@ -79,7 +79,7 @@ export class StubRatingsSource<T> implements RatingsSource<T> {
 }
 export class StubRatings<T> implements Ratings<T> {
   constructor(private ratings: Record<string, T>) {}
-  ratingFor(id: string, _source: MatchSource): T {
+  async ratingFor(id: string, _source: MatchSource): Promise<T> {
     const rating = this.ratings[id];
     if (rating === undefined) {
       throw new Error(`Rating not found for ${id}`);

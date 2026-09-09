@@ -8,8 +8,8 @@ export class RuleValidatedProbability implements Probability {
     private origin: Probability,
     private rules: PredictionRule[]
   ) {}
-  forMatch(match: SourceMatch): OutcomeDistribution {
-    const prediction = this.origin.forMatch(match);
+  async forMatch(match: SourceMatch): Promise<OutcomeDistribution> {
+    const prediction = await this.origin.forMatch(match);
     try {
       this.rules.forEach((rule) => {
         rule(prediction);

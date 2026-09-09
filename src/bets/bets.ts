@@ -16,7 +16,7 @@ export class Bets implements MatchBets {
     const matches = await this.source.matchesFor(this.date);
     this.log.info('Found matches from source ....');
     this.log.info(`${matches.length} matches from source`);
-    return matches.map((m) => this.strategy.bet(m));
+    return Promise.all(matches.map((m) => this.strategy.bet(m)));
   }
   async printTo(printer: Printer): Promise<void> {
     printer.print(await this.bets());

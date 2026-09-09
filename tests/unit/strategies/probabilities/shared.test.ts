@@ -19,8 +19,8 @@ describe('Given a probability', () => {
       };
       probability = new RuleValidatedProbability(new StubProbability(), [rule]);
     });
-    it('raises a ProbabilityError', () => {
-      expect(() => probability.forMatch(HARDCODED_MATCH)).toThrow(ProbabilityError);
+    it('raises a ProbabilityError', async () => {
+      await expect(probability.forMatch(HARDCODED_MATCH)).rejects.toThrow(ProbabilityError);
     });
   });
   describe('when a prediction is processed without an error', () => {
@@ -32,8 +32,8 @@ describe('Given a probability', () => {
       const rule: PredictionRule = (_prediction: OutcomeDistribution) => {};
       probability = new RuleValidatedProbability(origin, [rule]);
     });
-    it('returns the prediction unchanged', () => {
-      expect(probability.forMatch(HARDCODED_MATCH)).toStrictEqual(prediction);
+    it('returns the prediction unchanged', async () => {
+      expect(await probability.forMatch(HARDCODED_MATCH)).toStrictEqual(prediction);
     });
   });
 });
