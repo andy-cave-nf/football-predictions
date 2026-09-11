@@ -1,0 +1,23 @@
+[
+  {
+    "teams": {
+      "home": "Leeds United",
+      "away": "Newcastle United"
+    },
+    "stake": {
+      "home": 0,
+      "away": 0,
+      "draw": 0.08257326002791943
+    },
+    "probability": {
+      "home": 0.1698015940650735,
+      "draw": 0.40367608575417063,
+      "away": 0.4265223201807558
+    },
+    "odds": {
+      "home": 2.35,
+      "away": 2.9,
+      "draw": 3.5
+    }
+  }
+]
